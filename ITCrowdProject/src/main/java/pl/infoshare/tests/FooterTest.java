@@ -2,6 +2,7 @@ package pl.infoshare.tests;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.WebDriver;
@@ -37,7 +38,6 @@ public class FooterTest {
         basePage.close();
     }
 
-
     @Category(HandbagsOnFooter.class)
     @Test
     public void handbagsOnFooter() {
@@ -46,7 +46,26 @@ public class FooterTest {
 
         HandbagCataloguePage handbagText = new HandbagCataloguePage(driver);
         assertThat(handbagText.handbagText()).isEqualTo("Handbags");
+    }
 
+    @Category(SignInOnFooter.class)
+    @Test
+    public void signInOnFooter() {
+        FooterPage footerPage = new FooterPage(driver);
+        footerPage.clickSignIn();
+        CustomLogonPage customLogonPage = new CustomLogonPage(driver);
+        assertThat(customLogonPage.isRegisteredCustomerSection()).isEqualTo("Registered customer");
+        assertThat(customLogonPage.isNewCustomerSection()).isEqualTo("New customer");
+    }
+
+    @Category(BeachBagsOnFooter.class)
+    @Test
+    public void beachBagsOnFooter() {
+        FooterPage footerPage = new FooterPage(driver);
+        footerPage.clickBeachBags();
+
+        BeachBagsCataloguePage beachBagsCataloguePage = new BeachBagsCataloguePage(driver);
+        assertThat(beachBagsCataloguePage.getTitlePage()).isEqualTo("Beach bags");
     }
 
     @Category(LaptopBagsOnFooter.class)
@@ -58,16 +77,4 @@ public class FooterTest {
         LaptopBagsCataloguePage laptopBagsCataloguePage = new LaptopBagsCataloguePage(driver);
         assertThat(laptopBagsCataloguePage.laptopBagText()).isEqualTo("Laptop bags");
     }
-
-   @Category(HomeOnFooter.class)
-   @Test
-   public void homeFooter(){
-       FooterPage footerPage = new FooterPage(driver);
-       footerPage.clickHomeButtonOnFooter();
-
-       MainPage mainPage = new MainPage(driver);
-       assertThat(mainPage.featuredItemsText()).isEqualTo("Featured items");
-
-   }
-
 }
