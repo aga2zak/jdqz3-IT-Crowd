@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pl.infoshare.categories.AddToCartNextRandomBagTest;
 import pl.infoshare.categories.AddToCartRandomBagTest;
-import pl.infoshare.categories.AddToCartTests;
 import pl.infoshare.categories.PurchaseTests;
 import pl.infoshare.categories.*;
 import pl.infoshare.dataModels.Address;
@@ -18,7 +17,6 @@ import pl.infoshare.generators.BagGenerator;
 import pl.infoshare.pages.*;
 import pl.infoshare.pages.components.CategoriesMenu;
 import static org.assertj.core.api.Assertions.*;
-
 
 public class PurchaseTest {
 
