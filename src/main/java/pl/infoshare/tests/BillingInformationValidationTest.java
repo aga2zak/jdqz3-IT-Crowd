@@ -13,6 +13,7 @@ import pl.infoshare.generators.BagGenerator;
 import pl.infoshare.pages.*;
 
 
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,19 +50,20 @@ public class BillingInformationValidationTest {
     @Category(ValidateNameIsRequired.class)
     @Test
     public void validateNameIsEmpty() {
-        MainPage mainPage = new MainPage(driver);
-        mainPage.chooseHandbagsCategory();
+            MainPage mainPage = new MainPage(driver);
+            mainPage.chooseHandbagsCategory();
 
-        HandbagCataloguePage handbagCataloguePage = new HandbagCataloguePage(driver);
-        handbagCataloguePage.addToCart();
-        handbagCataloguePage.clickOnShipping();
-        handbagCataloguePage.checkout();
+            HandbagCataloguePage handbagCataloguePage = new HandbagCataloguePage(driver);
+            handbagCataloguePage.addToCart();
+            handbagCataloguePage.clickOnShipping();
+            handbagCataloguePage.checkout();
 
-        ReviewYourOrderPage reviewYourOrderPage = new ReviewYourOrderPage(driver);
-        reviewYourOrderPage.proceedToCheckout();
+            ReviewYourOrderPage reviewYourOrderPage = new ReviewYourOrderPage(driver);
+            reviewYourOrderPage.proceedToCheckout();
 
-        CheckoutPage checkoutPage = new CheckoutPage(driver);
-        assertThat(checkoutPage.validateResult()).isEqualTo("First name is required");
+
+            CheckoutPage checkoutPage = new CheckoutPage(driver);
+            assertThat(checkoutPage.validateResult()).isEqualTo("First name is required");
     }
 
     @Category(ValidateLastnameIsRequired.class)
@@ -102,6 +104,4 @@ public class BillingInformationValidationTest {
         checkoutPage.sectionLastName(user);
         assertThat(checkoutPage.validateResult()).isEqualTo("Street address is required");
     }
-
-
 }
