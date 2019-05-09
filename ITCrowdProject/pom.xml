@@ -59,6 +59,17 @@
           <artifactId>selenium-support</artifactId>
           <version>3.141.59</version>
       </dependency>
+<<<<<<< HEAD
+      <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+      <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.6</version>
+      </dependency>
+
+  </dependencies>
+
+=======
    </dependencies>
     <build>
         <plugins>
@@ -73,4 +84,5 @@
             </plugin>
         </plugins>
     </build>
+>>>>>>> master
 </project>
