@@ -9,12 +9,12 @@ public class FooterPage extends BasePage {
     private Button signInButton;
     private By handbagsLink = By.xpath("//span[contains(text(),'Handbags')]");
     private Button handbagsButton;
+    private By beachBagsElement=By.cssSelector("div.footer-area.ptb-80 a[href='/shop/category/beachbags.html/ref=c:50']");
+    private Button beachBags;
     private By laptopBagsLink = By.cssSelector(".usefull-link li:nth-of-type(4) .name");
     private Button laptopBagsButton;
-
     private By homeLink = By.xpath("//a[contains(text(),'Home')]");
     private Button homeButton;
-
     private By contactUsLink = By.cssSelector("body > div.footer-area.ptb-80 > div > div > div:nth-child(2) > div > div > ul > li:nth-child(6) > a");
     private Button contactUsButton;
 
@@ -27,6 +27,7 @@ public class FooterPage extends BasePage {
         this.laptopBagsButton = new Button(this.driver, this.laptopBagsLink);
         this.homeButton = new Button(this.driver, this.homeLink);
         this.contactUsButton = new Button(this.driver, this.contactUsLink);
+        this.beachBags=new Button(this.driver, this.beachBagsElement);
     }
 
     public void clickSignIn() {
@@ -37,16 +38,15 @@ public class FooterPage extends BasePage {
         this.handbagsButton.click();
     }
 
-    public void clickHomeButtonOnFooter() {
-        this.contactUsButton.safeClick();
-
-    }
-
-    public void clickLaptopBagsButtonOnFuter() {
-        this.laptopBagsButton.click();
-    }
+    public void clickHomeButtonOnFooter() { this.contactUsButton.safeClick(); }
 
     public void clickContactUsButtonOnFooter() {
         this.contactUsButton.safeClick();
     }
+
+    public void clickLaptopBagsButtonOnFooter(){ this.laptopBagsButton.click(); }
+
+    public void clickBeachBags(){ this.beachBags.click(); }
 }
+
+

@@ -3,12 +3,10 @@ package pl.infoshare.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pl.infoshare.elements.Button;
-import pl.infoshare.pages.sections.ShippingCart;
 import pl.infoshare.elements.Label;
 
 
-
-public class LaptopBagsCataloguePage extends BasePage {
+public class BeachBagsCataloguePage extends BasePage {
 
     private Button addToCart;
     private By shippingCartLink= By.cssSelector("#miniCartSummary a span");
@@ -16,27 +14,24 @@ public class LaptopBagsCataloguePage extends BasePage {
     private By chackoutLink;
     private Button checkout;
     private By bag;
-    private By laptopBagsText = By.xpath("//h2[@class='shop-banner-title lead']");
-    private Label laptopBags;
-    private ShippingCart shippingCart;
+    private By titleElement=By.cssSelector("h2.shop-banner-title");
+    private Label title;
 
-    public LaptopBagsCataloguePage(WebDriver driver){
+    public BeachBagsCataloguePage(WebDriver driver){
         super(driver);
-        this.url = "http://demo.shopizer.com:8080/shop/category/laptop-bags.html/ref=c:*";
+        this.url = "http://demo.shopizer.com:8080/shop/category/beachbags.html/ref=c:*";
         this.driver.get(this.url);
+        this.title= new Label(this.driver, this.titleElement);
     }
-
-
 
     public void addToCart(){
         this.addToCart.click();
     }
-    public void clickOnShipping() {
-        shippingCart = new ShippingCart(this.driver);
-        this.shippingCart.getShippingCart();
-    }
 
     public void checkout(){
+        this.shoppingCart = new Button(this.driver, this.shippingCartLink);
+        this.shoppingCart.scrollWithJs();
+        this.shoppingCart.safeClick();
         this.chackoutLink= By.cssSelector("li.checkout-bg a");
         this.checkout= new Button(this.driver, this.chackoutLink);
         checkout.clickWithJs();
@@ -47,9 +42,8 @@ public class LaptopBagsCataloguePage extends BasePage {
         this.addToCart = new Button(this.driver, this.bag);
     }
 
-    public String laptopBagText(){
-        this.laptopBagsText = By.xpath("//h2[@class='shop-banner-title lead']");
-        this. laptopBags= new Label(this.driver, this.laptopBagsText);
-        return this.laptopBags.getText();
+    public String getTitlePage(){
+        return this.title.getText();
     }
+
 }
