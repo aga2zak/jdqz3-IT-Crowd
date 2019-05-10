@@ -1,0 +1,3456 @@
+{
+	"info": {
+		"_postman_id": "22364622-cc0c-42fd-8dc5-763790326ba3",
+		"name": "ShopizerCollections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Basic Requests",
+			"item": [
+				{
+					"name": "Registration",
+					"item": [
+						{
+							"name": "Registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e07ba881-268c-4322-b351-44279b722259",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('assert cookie for  sessionid', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"jsessionid\")).to.be.not.null;\r",
+											"})\r",
+											"\r",
+											"pm.test('assert cookie for  user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9df0ca1c-1e39-42f8-815b-43f3d37cc51f",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");\r",
+											"\r",
+											"pm.globals.set(\"firstName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"lastName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"stateProvince\", Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10));\r",
+											"pm.globals.set(\"emailAddress\", pm.globals.get(\"firstName\")+'.'+pm.globals.get(\"lastName\")+'@test.com');\r",
+											"pm.globals.set(\"userName\", pm.globals.get(\"emailAddress\"));\r",
+											"pm.globals.set(\"password\",  Math.random().toString(36).replace(/[^a-zA-Z1-9]+/g, '').substr(0, 7));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.country",
+											"value": "PL",
+											"type": "text"
+										},
+										{
+											"key": "billing.stateProvince",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "checkPassword",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/register.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"register.html"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Logon",
+					"item": [
+						{
+							"name": "Logon",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set JSESSIONID', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"JSESSIONID\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"JSESSIONID\", pm.cookies.get(\"JSESSIONID\"));\r",
+											"pm.environment.set(\"user\", pm.cookies.get(\"user\"));\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "storeCode",
+											"value": "DEFAULT",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logon.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logon.html"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Logout",
+					"item": [
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logout",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Cart",
+					"item": [
+						{
+							"name": "Add item to Cart",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "76733e46-6436-4873-8590-2527d1488f91",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set', function () {\r",
+											"    pm.expect(pm.cookies.get(\"cart\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"totalQuantityInCart\", pm.response.json().quantity);\r",
+											"pm.environment.set(\"subTotalInCart\", pm.response.json().subTotal);\r",
+											"pm.environment.set(\"ItemId\", pm.response.json().shoppingCartItems[0].id);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1fcec78c-7dc5-42e8-ad55-79fbf34b0db2",
+										"exec": [
+											"get_random = function (list) {",
+											"  return list[Math.floor((Math.random()*list.length))];",
+											"} ",
+											"",
+											"pm.globals.set(\"productID\", get_random([1,2,3,4,5,6,7,8,9,10]));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"quantity\":1,\"productId\": {{productID}}}"
+								},
+								"url": {
+									"raw": "{{URL}}/cart/addShoppingCartItem",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"addShoppingCartItem"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Checkout cart has item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that subTotal = \" + pm.variables.get(\"subTotalInCart\") + \" is in Cart\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(pm.variables.get(\"subTotalInCart\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/cart/shoppingCart.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"shoppingCart.html"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check shop cart is empty ",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that cart is empty\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Your Shopping cart is empty\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/cart/shoppingCart.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"shoppingCart.html"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "quantity",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "lineItemId",
+											"value": "{{ItemId}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/cart/removeShoppingCartItem.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"removeShoppingCartItem.html"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check shop cart is  not empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that total quantity = \" + pm.variables.get(\"totalQuantityInCart\") + \" is in Cart\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(pm.variables.get(\"totalQuantityInCart\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that subTotal = \" + pm.variables.get(\"subTotalInCart\") + \" is in Cart\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(pm.variables.get(\"subTotalInCart\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/cart/shoppingCart.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"shoppingCart.html"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "Checkout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that total quantity = \" + pm.variables.get(\"totalQuantityInCart\") + \" is in Cart\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(pm.variables.get(\"totalQuantityInCart\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that subTotal = \" + pm.variables.get(\"subTotalInCart\") + \" is in Cart\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(pm.variables.get(\"subTotalInCart\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/order/checkout.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"order",
+										"checkout.html"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Commit order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that order is comleted\" , function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Order completed\");\r",
+											"});\r",
+											"\r",
+											"const $ = cheerio.load(pm.response.text())\r",
+											"pm.test(\"Set order id\", () => { \r",
+											"    pm.expect($(\".span12 p:nth-child(2)\").text()).to.not.be.empty; \r",
+											"    pm.environment.set('OrderID', $(\".span12 p:nth-child(2)\").text())\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "multipart/form-data",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "customer.billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.address",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.city",
+											"value": "Gdynia",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.stateProvince",
+											"value": "Gdynia",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.postalCode",
+											"value": "11-111",
+											"type": "text"
+										},
+										{
+											"key": "customer.emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.phone",
+											"value": "111-111-111",
+											"type": "text"
+										},
+										{
+											"key": "useDistanceWindow",
+											"value": "false",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.company",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.zone",
+											"value": "QC",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.country",
+											"value": "CA",
+											"type": "text"
+										},
+										{
+											"key": "_shipToDeliveryAddress",
+											"value": "on",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.firstName",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.lastName",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.company",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.address",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.city",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.country",
+											"value": "AU",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.zone",
+											"value": "QC",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.stateProvince",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.postalCode",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "comments",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "shippingModule",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "selectedShippingOption.optionId",
+											"value": "CUSTOM_WEIGHT_CANADA",
+											"type": "text"
+										},
+										{
+											"key": "paymentMethodType",
+											"value": "MONEYORDER",
+											"type": "text"
+										},
+										{
+											"key": "paymentModule",
+											"value": "moneyorder",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/order/commitOrder.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"order",
+										"commitOrder.html"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List of orders (check last order id)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"const $ = cheerio.load(pm.response.text())\r",
+											"pm.test(\"it should return a latest order Id\", () => { \r",
+											"    pm.expect($(\"#shop  table  tbody  tr:nth-child(1)  td:nth-child(1)  a\").text()).to.not.be.empty;\r",
+											"    pm.environment.set('lastOrderID', $(\"#shop  table  tbody  tr:nth-child(1)  td:nth-child(1)  a\").text())\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/customer/orders.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"orders.html"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Confirmation order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that order is comleted\" , function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Order completed\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that order has text \" + pm.variables.get(\"OrderID\") , function () {\r",
+											"  pm.expect(pm.response.text()).to.include(pm.variables.get(\"OrderID\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that order is comleted for \" + pm.variables.get(\"emailAddress\") , function () {\r",
+											"    pm.expect(pm.response.text()).to.include(pm.variables.get(\"emailAddress\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that's latest order id = \" + pm.variables.get(\"lastOrderID\") , function () {\r",
+											"  pm.expect(pm.response.text()).to.include(pm.variables.get(\"lastOrderID\"));\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "multipart/form-data"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "customer.billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.address",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.city",
+											"value": "Gdynia",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.stateProvince",
+											"value": "Gdynia",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.postalCode",
+											"value": "11-111",
+											"type": "text"
+										},
+										{
+											"key": "customer.emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.phone",
+											"value": "111-111-111",
+											"type": "text"
+										},
+										{
+											"key": "useDistanceWindow",
+											"value": "false",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.company",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.zone",
+											"value": "QC",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.country",
+											"value": "CA",
+											"type": "text"
+										},
+										{
+											"key": "_shipToDeliveryAddress",
+											"value": "on",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.firstName",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.lastName",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.company",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.address",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.city",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.country",
+											"value": "AU",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.zone",
+											"value": "QC",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.stateProvince",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.postalCode",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "comments",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "shippingModule",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "selectedShippingOption.optionId",
+											"value": "CUSTOM_WEIGHT_CANADA",
+											"type": "text"
+										},
+										{
+											"key": "paymentMethodType",
+											"value": "MONEYORDER",
+											"type": "text"
+										},
+										{
+											"key": "paymentModule",
+											"value": "moneyorder",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/order/confirmation.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"order",
+										"confirmation.html"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4f5bac37-9f78-4a93-9007-2e75c9f3a8f5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "81395ae7-a815-407d-b0ea-dae9fc5f942d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Tests Requests",
+			"item": [
+				{
+					"name": "Add to cart - test",
+					"item": [
+						{
+							"name": "Registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e07ba881-268c-4322-b351-44279b722259",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('assert cookie for  sessionid', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"jsessionid\")).to.be.not.null;\r",
+											"})\r",
+											"\r",
+											"pm.test('assert cookie for  user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9df0ca1c-1e39-42f8-815b-43f3d37cc51f",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");\r",
+											"\r",
+											"pm.globals.set(\"firstName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"lastName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"stateProvince\", Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10));\r",
+											"pm.globals.set(\"emailAddress\", pm.globals.get(\"firstName\")+'.'+pm.globals.get(\"lastName\")+'@test.com');\r",
+											"pm.globals.set(\"userName\", pm.globals.get(\"emailAddress\"));\r",
+											"pm.globals.set(\"password\",  Math.random().toString(36).replace(/[^a-zA-Z1-9]+/g, '').substr(0, 7));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.country",
+											"value": "PL",
+											"type": "text"
+										},
+										{
+											"key": "billing.stateProvince",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "checkPassword",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/register.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"register.html"
+									]
+								},
+								"description": "This request tests,  the random user was properly registrated in the app.\r\nThe results should check, the status response is 200 also assert cookies for jsessionid and user were set and return information about globals variables i.e. emailAddress and pasword if somone want to check this result directly in the application."
+							},
+							"response": []
+						},
+						{
+							"name": "Logon ",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set JSESSIONID', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"JSESSIONID\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"JSESSIONID\", pm.cookies.get(\"JSESSIONID\"));\r",
+											"pm.environment.set(\"user\", pm.cookies.get(\"user\"));\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "storeCode",
+											"value": "DEFAULT",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logon.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logon.html"
+									]
+								},
+								"description": "This request tests,  the random user was properly log on.\r\nThe results should check, the status response is 200 also assert cookies for jsessionid and user were set.\r\nThis test set environment variables i.e. JSESSIONID, user for another asserations and return information about globals variables i.e. emailAddress and pasword if somone want to check this result directly in the application."
+							},
+							"response": []
+						},
+						{
+							"name": "Add item to Cart ",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "76733e46-6436-4873-8590-2527d1488f91",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set', function () {\r",
+											"    pm.expect(pm.cookies.get(\"cart\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"totalQuantityInCart\", pm.response.json().quantity);\r",
+											"pm.environment.set(\"subTotalInCart\", pm.response.json().subTotal);\r",
+											"pm.environment.set(\"ItemId\", pm.response.json().shoppingCartItems[0].id);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1fcec78c-7dc5-42e8-ad55-79fbf34b0db2",
+										"exec": [
+											"get_random = function (list) {",
+											"  return list[Math.floor((Math.random()*list.length))];",
+											"} ",
+											"",
+											"pm.globals.set(\"productID\", get_random([1,2,3,4,5,6,7,8,9,10]));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"quantity\":1,\"productId\": {{productID}}}"
+								},
+								"url": {
+									"raw": "{{URL}}/cart/addShoppingCartItem",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"addShoppingCartItem"
+									]
+								},
+								"description": "This request tests add item to cart.\nThe result should contein status 200 and set cookie \"cart\" and enviroment variables i.e. totalQuantityInCart, subTotalInCart, ItemId"
+							},
+							"response": []
+						},
+						{
+							"name": "Checkout cart has item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that subTotal = \" + pm.variables.get(\"subTotalInCart\") + \" is in Cart\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(pm.variables.get(\"subTotalInCart\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/cart/shoppingCart.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"shoppingCart.html"
+									]
+								},
+								"description": "This request tests if item was added to cart.\r\nThe result should contain status 200 and subTotal equal value from previous test."
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logout",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logout"
+									]
+								},
+								"description": "This request test logout.\r\nThe result should contain status 200."
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4060825c-a94b-4580-b6ce-40f2e95c9a8c",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "563e07c2-ba8a-437e-8ff3-dd3cfbdfbbac",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Check if another user has empty cart - test",
+					"item": [
+						{
+							"name": "Registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e07ba881-268c-4322-b351-44279b722259",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('assert cookie for  sessionid', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"jsessionid\")).to.be.not.null;\r",
+											"})\r",
+											"\r",
+											"pm.test('assert cookie for  user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9df0ca1c-1e39-42f8-815b-43f3d37cc51f",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");\r",
+											"\r",
+											"pm.globals.set(\"firstName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"lastName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"stateProvince\", Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10));\r",
+											"pm.globals.set(\"emailAddress\", pm.globals.get(\"firstName\")+'.'+pm.globals.get(\"lastName\")+'@test.com');\r",
+											"pm.globals.set(\"userName\", pm.globals.get(\"emailAddress\"));\r",
+											"pm.globals.set(\"password\",  Math.random().toString(36).replace(/[^a-zA-Z1-9]+/g, '').substr(0, 7));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.country",
+											"value": "PL",
+											"type": "text"
+										},
+										{
+											"key": "billing.stateProvince",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "checkPassword",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/register.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"register.html"
+									]
+								},
+								"description": "This request tests,  the random user was properly registrated in the app.\r\nThe results should check, the status response is 200 also assert cookies for jsessionid and user were set and return information about globals variables i.e. emailAddress and pasword if somone want to check this result directly in the application."
+							},
+							"response": []
+						},
+						{
+							"name": "Logon",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set JSESSIONID', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"JSESSIONID\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"JSESSIONID\", pm.cookies.get(\"JSESSIONID\"));\r",
+											"pm.environment.set(\"user\", pm.cookies.get(\"user\"));\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "storeCode",
+											"value": "DEFAULT",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logon.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logon.html"
+									]
+								},
+								"description": "This request tests,  the random user was properly log on.\r\nThe results should check, the status response is 200 also assert cookies for jsessionid and user were set.\r\nThis test set environment variables i.e. JSESSIONID, user for another asserations and return information about globals variables i.e. emailAddress and pasword if somone want to check this result directly in the application."
+							},
+							"response": []
+						},
+						{
+							"name": "Check shop cart is empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that cart is empty\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Your Shopping cart is empty\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/cart/shoppingCart.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"shoppingCart.html"
+									]
+								},
+								"description": "This request tests if cart is empty for another user was logged.\r\nThe result should contain status 200 and without item in cart."
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logout",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logout"
+									]
+								},
+								"description": "This request test logout.\r\nThe result should contain status 200."
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4f5bac37-9f78-4a93-9007-2e75c9f3a8f5",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "81395ae7-a815-407d-b0ea-dae9fc5f942d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Remove item from cart - test",
+					"item": [
+						{
+							"name": "Registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e07ba881-268c-4322-b351-44279b722259",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('assert cookie for  sessionid', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"jsessionid\")).to.be.not.null;\r",
+											"})\r",
+											"\r",
+											"pm.test('assert cookie for  user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9df0ca1c-1e39-42f8-815b-43f3d37cc51f",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");\r",
+											"\r",
+											"pm.globals.set(\"firstName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"lastName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"stateProvince\", Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10));\r",
+											"pm.globals.set(\"emailAddress\", pm.globals.get(\"firstName\")+'.'+pm.globals.get(\"lastName\")+'@test.com');\r",
+											"pm.globals.set(\"userName\", pm.globals.get(\"emailAddress\"));\r",
+											"pm.globals.set(\"password\",  Math.random().toString(36).replace(/[^a-zA-Z1-9]+/g, '').substr(0, 7));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.country",
+											"value": "PL",
+											"type": "text"
+										},
+										{
+											"key": "billing.stateProvince",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "checkPassword",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/register.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"register.html"
+									]
+								},
+								"description": "This request tests,  the random user was properly registrated in the app.\r\nThe results should check, the status response is 200 also assert cookies for jsessionid and user were set and return information about globals variables i.e. emailAddress and pasword if somone want to check this result directly in the application."
+							},
+							"response": []
+						},
+						{
+							"name": "Logon",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set JSESSIONID', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"JSESSIONID\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"JSESSIONID\", pm.cookies.get(\"JSESSIONID\"));\r",
+											"pm.environment.set(\"user\", pm.cookies.get(\"user\"));\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\"));;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "storeCode",
+											"value": "DEFAULT",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logon.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logon.html"
+									]
+								},
+								"description": "This request tests,  the random user was properly log on.\r\nThe results should check, the status response is 200 also assert cookies for jsessionid and user were set.\r\nThis test set environment variables i.e. JSESSIONID, user for another asserations and return information about globals variables i.e. emailAddress and pasword if somone want to check this result directly in the application."
+							},
+							"response": []
+						},
+						{
+							"name": "Add item to Cart",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "76733e46-6436-4873-8590-2527d1488f91",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set', function () {\r",
+											"    pm.expect(pm.cookies.get(\"cart\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"totalQuantityInCart\", pm.response.json().quantity);\r",
+											"pm.environment.set(\"subTotalInCart\", pm.response.json().subTotal);\r",
+											"pm.environment.set(\"ItemId\", pm.response.json().shoppingCartItems[0].id);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1fcec78c-7dc5-42e8-ad55-79fbf34b0db2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"quantity\":1,\"productId\": 5}"
+								},
+								"url": {
+									"raw": "{{URL}}/cart/addShoppingCartItem",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"addShoppingCartItem"
+									]
+								},
+								"description": "This request tests add item to cart.\nThe result should contein status 200 and set cookie \"cart\" and enviroment variables i.e. totalQuantityInCart, subTotalInCart, ItemId"
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.environment.unset(\"totalQuantityInCart\");\r",
+											"pm.environment.unset(\"subTotalInCart\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "quantity",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "lineItemId",
+											"value": "{{ItemId}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/cart/removeShoppingCartItem.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"removeShoppingCartItem.html"
+									]
+								},
+								"description": "This request tests remove item from cart.\r\nThe result should contain status 200."
+							},
+							"response": []
+						},
+						{
+							"name": "Checkout cart has not item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that cart is empty\" , function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Your Shopping cart is empty\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/cart/shoppingCart.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"shoppingCart.html"
+									]
+								},
+								"description": "This request tests if cart is empty.\r\nThe result should contain status 200 and item in cart without."
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logout",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logout"
+									]
+								},
+								"description": "This request test logout.\r\nThe result should contain status 200."
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4f5bac37-9f78-4a93-9007-2e75c9f3a8f5",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "81395ae7-a815-407d-b0ea-dae9fc5f942d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Make order - test",
+					"item": [
+						{
+							"name": "Registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e07ba881-268c-4322-b351-44279b722259",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('assert cookie for  sessionid', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"jsessionid\")).to.be.not.null;\r",
+											"})\r",
+											"\r",
+											"pm.test('assert cookie for  user' , function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\"));\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9df0ca1c-1e39-42f8-815b-43f3d37cc51f",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");\r",
+											"\r",
+											"pm.globals.set(\"firstName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"lastName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"stateProvince\", Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10));\r",
+											"pm.globals.set(\"emailAddress\", pm.globals.get(\"firstName\")+'.'+pm.globals.get(\"lastName\")+'@test.com');\r",
+											"pm.globals.set(\"userName\", pm.globals.get(\"emailAddress\"));\r",
+											"pm.globals.set(\"password\",  Math.random().toString(36).replace(/[^a-zA-Z1-9]+/g, '').substr(0, 7));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.country",
+											"value": "PL",
+											"type": "text"
+										},
+										{
+											"key": "billing.stateProvince",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "checkPassword",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/register.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"register.html"
+									]
+								},
+								"description": "This request tests,  the random user was properly registrated in the app.\r\nThe results should check, the status response is 200 also assert cookies for jsessionid and user were set and return information about globals variables i.e. emailAddress and pasword if somone want to check this result directly in the application."
+							},
+							"response": []
+						},
+						{
+							"name": "Logon",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set JSESSIONID', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"JSESSIONID\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"JSESSIONID\", pm.cookies.get(\"JSESSIONID\"));\r",
+											"pm.environment.set(\"user\", pm.cookies.get(\"user\"));\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "storeCode",
+											"value": "DEFAULT",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logon.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logon.html"
+									]
+								},
+								"description": "This request tests,  the random user was properly log on.\r\nThe results should check, the status response is 200 also assert cookies for jsessionid and user were set.\r\nThis test set environment variables i.e. JSESSIONID, user for another asserations and return information about globals variables i.e. emailAddress and pasword if somone want to check this result directly in the application."
+							},
+							"response": []
+						},
+						{
+							"name": "Add item to Cart",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "76733e46-6436-4873-8590-2527d1488f91",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set', function () {\r",
+											"    pm.expect(pm.cookies.get(\"cart\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.environment.set(\"totalQuantityInCart\", pm.response.json().quantity);\r",
+											"pm.environment.set(\"subTotalInCart\", pm.response.json().subTotal);\r",
+											"pm.environment.set(\"ItemId\", pm.response.json().id);\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1fcec78c-7dc5-42e8-ad55-79fbf34b0db2",
+										"exec": [
+											"get_random = function (list) {",
+											"  return list[Math.floor((Math.random()*list.length))];",
+											"} ",
+											"",
+											"pm.globals.set(\"productID\", get_random([1,2,3,4,5,6,7,8,9,10]));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"quantity\":1,\"productId\": {{productID}}}"
+								},
+								"url": {
+									"raw": "{{URL}}/cart/addShoppingCartItem",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cart",
+										"addShoppingCartItem"
+									]
+								},
+								"description": "This request tests add item to cart.\nThe result should contein status 200 and set cookie \"cart\" and enviroment variables i.e. totalQuantityInCart, subTotalInCart, ItemId"
+							},
+							"response": []
+						},
+						{
+							"name": "Checkout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that total quantity = \" + pm.variables.get(\"totalQuantityInCart\") + \" is in Cart\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(pm.variables.get(\"totalQuantityInCart\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that subTotal = \" + pm.variables.get(\"subTotalInCart\") + \" is in Cart\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(pm.variables.get(\"subTotalInCart\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/order/checkout.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"order",
+										"checkout.html"
+									]
+								},
+								"description": "This request tests if item was added to cart.\r\nThe result should contain status 200 and subTotal and quantity equal value from previous test."
+							},
+							"response": []
+						},
+						{
+							"name": "Commit order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that order is comleted\" , function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Order completed\");\r",
+											"});\r",
+											"\r",
+											"const $ = cheerio.load(pm.response.text())\r",
+											"pm.test(\"Set order id\", () => { \r",
+											"    pm.expect($(\".span12 p:nth-child(2)\").text()).to.not.be.empty; \r",
+											"    pm.environment.set('OrderID', $(\".span12 p:nth-child(2)\").text())\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "multipart/form-data",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "customer.billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.address",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.city",
+											"value": "Gdynia",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.stateProvince",
+											"value": "Gdynia",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.postalCode",
+											"value": "11-111",
+											"type": "text"
+										},
+										{
+											"key": "customer.emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.phone",
+											"value": "111-111-111",
+											"type": "text"
+										},
+										{
+											"key": "useDistanceWindow",
+											"value": "false",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.company",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.zone",
+											"value": "QC",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.country",
+											"value": "CA",
+											"type": "text"
+										},
+										{
+											"key": "_shipToDeliveryAddress",
+											"value": "on",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.firstName",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.lastName",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.company",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.address",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.city",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.country",
+											"value": "AU",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.zone",
+											"value": "QC",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.stateProvince",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.postalCode",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "comments",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "shippingModule",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "selectedShippingOption.optionId",
+											"value": "CUSTOM_WEIGHT_CANADA",
+											"type": "text"
+										},
+										{
+											"key": "paymentMethodType",
+											"value": "MONEYORDER",
+											"type": "text"
+										},
+										{
+											"key": "paymentModule",
+											"value": "moneyorder",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/order/commitOrder.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"order",
+										"commitOrder.html"
+									]
+								},
+								"description": "This request tests commit order in cart.\r\nThe result should contain status 200 and assert that the order is competed."
+							},
+							"response": []
+						},
+						{
+							"name": "Confirmation order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7e87fc77-c146-48eb-9a53-e4181f5da37e",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that order is comleted\" , function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Order completed\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that order has text \" + pm.variables.get(\"OrderID\") , function () {\r",
+											"  pm.expect(pm.response.text()).to.include(pm.variables.get(\"OrderID\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Assert that order is comleted for \" + pm.variables.get(\"emailAddress\") , function () {\r",
+											"    pm.expect(pm.response.text()).to.include(pm.variables.get(\"emailAddress\"));\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "multipart/form-data"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "customer.billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.address",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.city",
+											"value": "Gdynia",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.stateProvince",
+											"value": "Gdynia",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.postalCode",
+											"value": "11-111",
+											"type": "text"
+										},
+										{
+											"key": "customer.emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.phone",
+											"value": "111-111-111",
+											"type": "text"
+										},
+										{
+											"key": "useDistanceWindow",
+											"value": "false",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.company",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.zone",
+											"value": "QC",
+											"type": "text"
+										},
+										{
+											"key": "customer.billing.country",
+											"value": "CA",
+											"type": "text"
+										},
+										{
+											"key": "_shipToDeliveryAddress",
+											"value": "on",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.firstName",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.lastName",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.company",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.address",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.city",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.country",
+											"value": "AU",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.zone",
+											"value": "QC",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.stateProvince",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "customer.delivery.postalCode",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "comments",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "shippingModule",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "selectedShippingOption.optionId",
+											"value": "CUSTOM_WEIGHT_CANADA",
+											"type": "text"
+										},
+										{
+											"key": "paymentMethodType",
+											"value": "MONEYORDER",
+											"type": "text"
+										},
+										{
+											"key": "paymentModule",
+											"value": "moneyorder",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/order/confirmation.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"order",
+										"confirmation.html"
+									]
+								},
+								"description": "This request tests confirmation order.\r\nThe result should contain status 200 and assert that the order is completed and included OrderID and user email address."
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logout",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logout"
+									]
+								},
+								"description": "This request test logout.\r\nThe result should contain status 200."
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4f5bac37-9f78-4a93-9007-2e75c9f3a8f5",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "81395ae7-a815-407d-b0ea-dae9fc5f942d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Login with wrong password - test",
+					"item": [
+						{
+							"name": "Registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e07ba881-268c-4322-b351-44279b722259",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('assert cookie for  sessionid', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"jsessionid\")).to.be.not.null;\r",
+											"})\r",
+											"\r",
+											"pm.test('assert cookie for  user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9df0ca1c-1e39-42f8-815b-43f3d37cc51f",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");\r",
+											"\r",
+											"pm.globals.set(\"firstName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"lastName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"stateProvince\", Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10));\r",
+											"pm.globals.set(\"emailAddress\", pm.globals.get(\"firstName\")+'.'+pm.globals.get(\"lastName\")+'@test.com');\r",
+											"pm.globals.set(\"userName\", pm.globals.get(\"emailAddress\"));\r",
+											"pm.globals.set(\"password\",  Math.random().toString(36).replace(/[^a-zA-Z1-9]+/g, '').substr(0, 7));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.country",
+											"value": "PL",
+											"type": "text"
+										},
+										{
+											"key": "billing.stateProvince",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "checkPassword",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/register.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"register.html"
+									]
+								},
+								"description": "This request tests,  the random user was properly registrated in the app.\r\nThe results should check, the status response is 200 also assert cookies for jsessionid and user were set and return information about globals variables i.e. emailAddress and pasword if somone want to check this result directly in the application."
+							},
+							"response": []
+						},
+						{
+							"name": "Logon",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set JSESSIONID', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"JSESSIONID\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('Status has been  -1 in response', function () {\r",
+											"    pm.expect(pm.response.json().response.status).to.equal(-1);\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test('UserName should not be set in response', function () {\r",
+											"    pm.expect(pm.response.json().response.userName).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"\r",
+											"pm.environment.set(\"JSESSIONID\", pm.cookies.get(\"JSESSIONID\"));\r",
+											"pm.environment.set(\"user\", pm.cookies.get(\"user\"));\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\") + ' but wrong password was set');\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}1",
+											"type": "text"
+										},
+										{
+											"key": "storeCode",
+											"value": "DEFAULT",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logon.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logon.html"
+									]
+								},
+								"description": "This request tests  respons for wrong password.\r\nThe result should contain status 200 and assert that status is -1 and  userName has empty value."
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4f5bac37-9f78-4a93-9007-2e75c9f3a8f5",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "81395ae7-a815-407d-b0ea-dae9fc5f942d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Login with wrong login - test ",
+					"item": [
+						{
+							"name": "Registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e07ba881-268c-4322-b351-44279b722259",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('assert cookie for  sessionid', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"jsessionid\")).to.be.not.null;\r",
+											"})\r",
+											"\r",
+											"pm.test('assert cookie for  user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9df0ca1c-1e39-42f8-815b-43f3d37cc51f",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");\r",
+											"\r",
+											"pm.globals.set(\"firstName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"lastName\",  Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));\r",
+											"pm.globals.set(\"stateProvince\", Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10));\r",
+											"pm.globals.set(\"emailAddress\", pm.globals.get(\"firstName\")+'.'+pm.globals.get(\"lastName\")+'@test.com');\r",
+											"pm.globals.set(\"userName\", pm.globals.get(\"emailAddress\"));\r",
+											"pm.globals.set(\"password\",  Math.random().toString(36).replace(/[^a-zA-Z1-9]+/g, '').substr(0, 7));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "billing.firstName",
+											"value": "{{firstName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.lastName",
+											"value": "{{lastName}}",
+											"type": "text"
+										},
+										{
+											"key": "billing.country",
+											"value": "PL",
+											"type": "text"
+										},
+										{
+											"key": "billing.stateProvince",
+											"value": "{{stateProvince}}",
+											"type": "text"
+										},
+										{
+											"key": "emailAddress",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "checkPassword",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/register.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"register.html"
+									]
+								},
+								"description": "This request tests,  the random user was properly registrated in the app.\r\nThe results should check, the status response is 200 also assert cookies for jsessionid and user were set and return information about globals variables i.e. emailAddress and pasword if somone want to check this result directly in the application."
+							},
+							"response": []
+						},
+						{
+							"name": "Logon",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d09de2a5-33c4-4a4b-868e-719e964f98cc",
+										"exec": [
+											"pm.test(\"response is ok\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set JSESSIONID', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"JSESSIONID\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('Status has been  -1 in response', function () {\r",
+											"    pm.expect(pm.response.json().response.status).to.equal(-1);\r",
+											"   \r",
+											"});\r",
+											"\r",
+											"pm.test('UserName should not be set in response', function () {\r",
+											"    pm.expect(pm.response.json().response.userName).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.test('cookie set user', function () {\r",
+											"    pm.expect(pm.response.cookies.get(\"user\")).to.be.not.null;\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"JSESSIONID\", pm.cookies.get(\"JSESSIONID\"));\r",
+											"pm.environment.set(\"user\", pm.cookies.get(\"user\"));\r",
+											"\r",
+											"pm.test('Test for user login: '+ pm.globals.get(\"emailAddress\") + ' password: ' + pm.globals.get(\"password\") + ' but wrong password was set');"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc34dc67-ea4c-4ae9-b3ce-d4e779f759ca",
+										"exec": [
+											"pm.environment.unset(\"totalQuantityInCar\");\r",
+											"pm.environment.unset(\"subTotalInCart\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userName",
+											"value": "{{emailAddress}}.test",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "storeCode",
+											"value": "DEFAULT",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/customer/logon.html",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"customer",
+										"logon.html"
+									]
+								},
+								"description": "This request tests  respons for wrong password.\r\nThe result should contain status 200 and assert that status is -1 and  userName has empty value."
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4f5bac37-9f78-4a93-9007-2e75c9f3a8f5",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "81395ae7-a815-407d-b0ea-dae9fc5f942d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}
