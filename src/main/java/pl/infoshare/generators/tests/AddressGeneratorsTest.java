@@ -25,6 +25,7 @@ public class AddressGeneratorsTest {
         assertThat(number).isBetween(4,250);
         assertThat(number).isGreaterThanOrEqualTo(4);
         assertThat(number).isNotEqualTo(0);
+        assertThat(str.charAt(0)).isUpperCase();
 
     }
 
@@ -37,6 +38,7 @@ public class AddressGeneratorsTest {
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);
         assertThat(str).isEqualToIgnoringCase(str);
+        assertThat(str.charAt(0)).isUpperCase();
         assertThat(str).isIn("Belgium", "Brazil", "Czech Republic", "France", "India", "Italy");
 
     }
@@ -53,6 +55,33 @@ public class AddressGeneratorsTest {
         assertThat(str)
                 .hasSize(6)
                 .contains("-")
+                .doesNotContainAnyWhitespaces();
+    }
+
+    @Test
+    void assertionsState() {
+        String str = AddressGenerator.generateState();
+        String str1 = AddressGenerator.generateState();
+
+        assertThat(str).isNotBlank();
+        assertThat(str).isNotEmpty();
+        assertThat(str).isNotEqualTo(str1);
+        assertThat(str.charAt(0)).isUpperCase();
+        assertThat(str)
+                .hasSize(9)
+                .doesNotContainAnyWhitespaces();
+    }
+    @Test
+    void assertionsCity() {
+        String str = AddressGenerator.generateCity();
+        String str1 = AddressGenerator.generateCity();
+
+        assertThat(str).isNotBlank();
+        assertThat(str).isNotEmpty();
+        assertThat(str).isNotEqualTo(str1);
+        assertThat(str.charAt(0)).isUpperCase();
+        assertThat(str)
+                .hasSize(7)
                 .doesNotContainAnyWhitespaces();
     }
 }
