@@ -2,7 +2,6 @@ package pl.infoshare.generators.tests;
 
 import org.junit.jupiter.api.Test;
 import pl.infoshare.generators.AddressGenerator;
-import pl.infoshare.generators.RandomGenerator;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,10 +11,17 @@ public class AddressGeneratorsTest {
 
     @Test
     void assertionsStreet() {
-        String str = AddressGenerator.generateStreetAddress();
-        String str1 = AddressGenerator.generateStreetAddress();
-        Integer number = Integer.parseInt(str.substring(13,15));
+        //given
+        String str;
+        String str1;
+        Integer number;
 
+        //when
+        str = AddressGenerator.generateStreetAddress();
+        str1 = AddressGenerator.generateStreetAddress();
+        number = Integer.parseInt(str.substring(13,15));
+
+        //then
         assertThat(str).isNotBlank();
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);
@@ -31,9 +37,15 @@ public class AddressGeneratorsTest {
 
     @Test
     void assertionsCountry() {
-        String str = AddressGenerator.generateCountry();
-        String str1 = AddressGenerator.generateCountry();
+        //given
+        String str;
+        String str1;
 
+        //when
+         str = AddressGenerator.generateCountry();
+         str1 = AddressGenerator.generateCountry();
+
+         //then
         assertThat(str).isNotBlank();
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);
@@ -45,10 +57,15 @@ public class AddressGeneratorsTest {
 
     @Test
     void assertionsPostalCode() {
-        String str = AddressGenerator.generatePostalCode();
-        String str1 = AddressGenerator.generatePostalCode();
+        //given
+        String str;
+        String str1;
 
+        //when
+        str = AddressGenerator.generatePostalCode();
+        str1 = AddressGenerator.generatePostalCode();
 
+        //then
         assertThat(str).isNotBlank();
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);
@@ -60,9 +77,15 @@ public class AddressGeneratorsTest {
 
     @Test
     void assertionsState() {
-        String str = AddressGenerator.generateState();
-        String str1 = AddressGenerator.generateState();
+        //given
+        String str;
+        String str1;
 
+        //when
+        str = AddressGenerator.generateState();
+        str1 = AddressGenerator.generateState();
+
+        //then
         assertThat(str).isNotBlank();
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);
@@ -73,9 +96,15 @@ public class AddressGeneratorsTest {
     }
     @Test
     void assertionsCity() {
-        String str = AddressGenerator.generateCity();
-        String str1 = AddressGenerator.generateCity();
+        //given
+        String str;
+        String str1;
 
+        //when
+        str = AddressGenerator.generateCity();
+        str1 = AddressGenerator.generateCity();
+
+        //then
         assertThat(str).isNotBlank();
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);

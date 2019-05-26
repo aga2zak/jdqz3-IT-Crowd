@@ -9,9 +9,15 @@ public class CredentialsGeneratorTest {
 
     @Test
     void assertionsFirstName() {
-        String str = CredentialsGenerator.generateFirstname();
-        String str1 = CredentialsGenerator.generateFirstname();
+        //given
+        String str;
+        String str1;
 
+        //when
+        str = CredentialsGenerator.generateFirstname();
+        str1 = CredentialsGenerator.generateFirstname();
+
+        //then
         assertThat(str).isNotBlank();
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);
@@ -25,9 +31,15 @@ public class CredentialsGeneratorTest {
 
     @Test
     void assertionsLastName() {
-        String str = CredentialsGenerator.generateLastname();
-        String str1 = CredentialsGenerator.generateLastname();
+        //given
+        String str;
+        String str1;
 
+        //when
+        str = CredentialsGenerator.generateLastname();
+        str1 = CredentialsGenerator.generateLastname();
+
+        //then
         assertThat(str).isNotBlank();
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);
@@ -41,9 +53,15 @@ public class CredentialsGeneratorTest {
 
     @Test
     void assertionsEmail() {
-        String str = CredentialsGenerator.generateEmail();
-        String str1 = CredentialsGenerator.generateEmail();
+        //given
+        String str;
+        String str1;
 
+        //when
+        str = CredentialsGenerator.generateEmail();
+        str1 = CredentialsGenerator.generateEmail();
+
+        //then
         assertThat(str).isNotBlank();
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);
@@ -57,9 +75,15 @@ public class CredentialsGeneratorTest {
 
     @Test
     void assertionsPassword() {
-        String str = CredentialsGenerator.generatePassword();
-        String str1 = CredentialsGenerator.generatePassword();
+        //given
+        String str;
+        String str1;
 
+        //when
+        str = CredentialsGenerator.generatePassword();
+        str1 = CredentialsGenerator.generatePassword();
+
+        //then
         assertThat(str).isNotBlank();
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);
@@ -72,9 +96,15 @@ public class CredentialsGeneratorTest {
 
     @Test
     void assertionsPhoneNumber() {
-        String str = CredentialsGenerator.generatePhoneNumber();
-        String str1 = CredentialsGenerator.generatePhoneNumber();
+        //given
+        String str;
+        String str1;
 
+        //when
+        str = CredentialsGenerator.generatePhoneNumber();
+        str1 = CredentialsGenerator.generatePhoneNumber();
+
+        //then
         assertThat(str).isNotBlank();
         assertThat(str).isNotEmpty();
         assertThat(str).isNotEqualTo(str1);

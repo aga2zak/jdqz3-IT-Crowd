@@ -73,7 +73,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M3</version>
                 <configuration>
-                    <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
+                    <testSourceDirectory>${basedir}/src/main/java/pl/infoshare/generators/tests</testSourceDirectory>
                     <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
                 </configuration>
             </plugin>
